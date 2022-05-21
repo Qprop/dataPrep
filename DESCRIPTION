@@ -2,7 +2,7 @@ Package: dataPrep
 Title: Geopoll Dataprep collection of functions
 Version: 0.0.0.9000
 Authors@R: 
-    person("brayo", "brayo", , "brayo.brayo@gmail.com", role = c("aut", "cre"),
+    person("brayo", "qprop", , "brayo.qprop@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
