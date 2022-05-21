@@ -18,5 +18,5 @@ func_unite(dataset_name, var_name)
 Merges variables into one separated by comma, the variables should have NA
 }
 \examples{
-fun_unite(dt, var_name = "var1")
+#fun_unite(dt, var_name = "var1")
 }

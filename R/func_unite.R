@@ -6,7 +6,7 @@
 #' @return
 #' @export
 #'
-#' @examples fun_unite(dt, var_name = "var1")
+#' @examples #fun_unite(dt, var_name = "var1")
 func_unite <- function(dataset_name, var_name){
 
   var_name <- enquo(var_name)
