@@ -34,3 +34,4 @@ func_split_to_rows <-
       mutate(label = str_trim(label, side = "right"))
 
      }
+

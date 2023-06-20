@@ -10,10 +10,10 @@
 #' @examples #spss_func(var_naming, trunc = TRUE)
 spss_func <- function(var_naming, trunc = TRUE) {
   var_hold <- var_naming %>%
-    str_remove_all("'|\\/|\\s|\\&") %>%
+    str_remove_all("'|\\/|\\s|\\&|\\?") %>%
     str_replace_all("\\[", "_") %>%
-    str_remove("\\]") %>%
-    str_replace_all("\\-", "_") %>%
+    str_remove_all("\\]") %>%
+    str_replace_all("\\-|\\–|-", "_") %>%
     str_remove_all("'") %>%
     str_remove_all("\\u2019") %>%
     str_remove_all("\\+") %>%

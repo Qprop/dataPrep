@@ -112,7 +112,7 @@ func_factor_conversion <- function(var_name , data_name, question_type) {
 
         if (!str_detect(
           list_of_sata_var[i],
-          regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+          regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
         )) {
           temp_data[[list_of_sata_var[i]]] <-
             factor(temp_data[[list_of_sata_var[i]]], levels = pull(fct_value, label))
@@ -121,7 +121,7 @@ func_factor_conversion <- function(var_name , data_name, question_type) {
 
         if (str_detect(
           list_of_sata_var[i],
-          regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+          regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
         )) {
           #new_var_name <- paste0(list_of_sata_var[i],"_recode")
           other_var_name <- paste0(list_of_sata_var[i], "_other")
@@ -155,12 +155,12 @@ func_factor_conversion <- function(var_name , data_name, question_type) {
 
       if (!list_of_sata_var[str_detect(
         list_of_sata_var,
-        regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+        regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
       )] %in% colnames(temp_data)) {
         other_add <-
           list_of_sata_var[str_detect(
             list_of_sata_var,
-            regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+            regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
           )]
 
         temp_data[other_add] <- as.character(NA)
@@ -184,7 +184,7 @@ func_factor_conversion <- function(var_name , data_name, question_type) {
 
         if (!str_detect(
           list_of_sata_var[i],
-          regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+          regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
         )) {
           temp_data[[list_of_sata_var[i]]] <-
             factor(temp_data[[list_of_sata_var[i]]], levels = c("Yes", "No"))
@@ -193,27 +193,27 @@ func_factor_conversion <- function(var_name , data_name, question_type) {
 
         if (str_detect(
           list_of_sata_var[i],
-          regex("(Other \\[Speci)|(Others \\[Speci)", ignore_case = TRUE)
+          regex("(Other \\[Speci)|(Others \\[Speci)|(Other \\[speci)|(Others \\[speci)", ignore_case = TRUE)
         )) {
           #new_var_name <- paste0(list_of_sata_var[i],"_recode")
           other_var_name <- paste0(list_of_sata_var[i], "_other")
 
-          temp_data[[other_var_name]] <-
-            if_else(!temp_data[[list_of_sata_var[i]]] %in% pull(fct_value, label),
-                    temp_data[[list_of_sata_var[i]]],
-                    "")
+          # temp_data[[other_var_name]] <-
+          #   if_else(!temp_data[[list_of_sata_var[i]]] %in% pull(fct_value, label),
+          #           temp_data[[list_of_sata_var[i]]],
+          #           "")
 
-          temp_data[[list_of_sata_var[i]]][(temp_data[[list_of_sata_var[i]]] != "") &
-                                             !(temp_data[[other_var_name]] %in% c("", "N/A"))] <-
-            "Other [specify]"
+          # temp_data[[list_of_sata_var[i]]][(temp_data[[list_of_sata_var[i]]] != "") &
+          #                                    !(temp_data[[other_var_name]] %in% c("", "N/A"))] <-
+          #   "Other [specify]"
 
 
 
           temp_data[[list_of_sata_var[i]]] <-
             factor(temp_data[[list_of_sata_var[i]]], levels = c("Yes", "No"))
 
-          temp_data <- temp_data %>%
-            select(1:list_of_sata_var[i], ncol(temp_data), everything())
+          # temp_data <- temp_data %>%
+          #   select(1:list_of_sata_var[i], ncol(temp_data), everything())
 
         }
 

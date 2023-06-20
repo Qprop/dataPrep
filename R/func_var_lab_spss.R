@@ -14,7 +14,7 @@ func_var_lab_spss <- function(var_name, data_name, question_type) {
   ## Single Choice ----
 
   if (question_type == "Single Choice") {
-    single_choice1 <- var_name %>% spss_func(trunc = FALSE)
+    single_choice1 <- var_name %>% spss_func(trunc = TRUE)
 
     single_choice_avail_sub <-
       var_name[single_choice1 %in% colnames(data_name)]
@@ -81,17 +81,16 @@ func_var_lab_spss <- function(var_name, data_name, question_type) {
 
   if (question_type %in% c("Open Ended", "Range")) {
     if (question_type == "Open Ended") {
-      if (any(code_working[["QName"]] %in% var_name  &
-              code_working[["QName_loop"]] %in% "")) {
-        var_label <- code_working %>%
+      if (any(code_working3[["QName"]] %in% var_name  &
+              code_working3[["QName_loop"]] %in% "")) {
+        var_label <- code_working3 %>%
           func_var_lab(question_type = "Open Ended", var_name = var_name)
       }
 
-      if (any(code_working[["QName"]] %in% var_name  &
-              !code_working[["QName_loop"]] %in% "")) {
-        var_label <- code_working %>%
-          func_var_lab(
-            question_type = "Open Ended",
+      if (any(code_working3[["QName"]] %in% var_name  &
+              !code_working3[["QName_loop"]] %in% "")) {
+        var_label <- code_working3 %>%
+          func_var_lab(question_type = "Open Ended",
             var_name = var_name,
             loop_consideration = TRUE
           )
@@ -148,7 +147,7 @@ func_var_lab_spss <- function(var_name, data_name, question_type) {
 
   if (question_type == "Select All That Apply") {
     var_name1 <- data_name %>%
-      select(contains(var_name)) %>% colnames()
+      select(contains(spss_func(var_name))) %>% colnames()
 
     (
       fct_value <- code_working %>%
@@ -225,7 +224,7 @@ func_var_lab_spss <- function(var_name, data_name, question_type) {
       str_replace("'", "")
 
     var_name1 <- data_name %>%
-      select(contains(Open_Ended_sata1)) %>% colnames()
+      select(contains(spss_func(Open_Ended_sata1))) %>% colnames()
 
     (
       fct_value <- code_working %>%

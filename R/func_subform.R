@@ -75,10 +75,11 @@ code_working <- code_instruction %>%
       "Select All That Apply",
       "Select All That Apply Rating",
       "Range",
+      "Open Ended",
       "Open Ended-Single Choice",
       "Single Choice"
     ) &
-      str_detect(`Programming Instructions`, "selected"),
+      str_detect(`Programming Instructions`, "(selected)"),
     str_extract(`Programming Instructions`, '\\".*\\"'),
     ""
   )) %>%
@@ -226,15 +227,17 @@ code_working1 <- code_working1 %>%
     QName
   )) %>%
   mutate(English = if_else(open_ended_q == "Other", "Other", English)) %>%
-  mutate(QType = if_else(open_ended_q == "Other", "Open Ended", QType))
+  mutate(QType = if_else(open_ended_q == "Other", "Open Ended", QType)) %>%
+  mutate(Codes = if_else(open_ended_q == "Other", "", Codes))
 
 code_working2 <- code_working1 %>%
   mutate(code_split = str_replace_all(Codes, "[0-9]+\\)", "`")) %>%
   mutate(value_num = str_remove(str_c(",", str_replace_all(Codes, "\\).*", "`")), "`$")) %>%
-  mutate(value_num = str_replace(value_num, ",","`")) %>%
+  #mutate(value_num = str_replace(value_num, ",","`")) %>%
   mutate(code_split = if_else(
     QType %in% c(
       "Open Ended-Select All That Apply",
+      "Open Ended",
       "Select All That Apply",
       "Select All That Apply Rating",
       "MatrixTable"
@@ -242,10 +245,11 @@ code_working2 <- code_working1 %>%
     code_split,
     ""
   )) %>%
-  separate_rows(code_split, value_num, sep = "`") %>%
+  separate_rows(code_split, sep = "`") %>%
   mutate(QName = if_else(code_split != "" &
                            QType %in% c(
                              "Open Ended-Select All That Apply",
+                             "Open Ended",
                              "Select All That Apply",
                              "Select All That Apply Rating"
                            ),
